@@ -1,0 +1,20 @@
+// ➔ Les fourmis se déplacent toutes à la même vitesse.
+
+// ➔ Les salles de la fourmilière ne peuvent accueillir qu’une seule fourmi à
+// la fois (en dehors du vestibule et du dortoir) sauf si spécifié autrement.
+
+// ➔ Une fourmi ne peut s’engager dans un tunnel que si la salle de
+// destination est vide (en dehors du dortoir) ou si la fourmi qui l’occupe
+// est en train de partir.
+
+// ➔ Les tunnels sont traversés instantanément par les fourmis (c’est plutôt
+// des portes, en fait).
+
+// ➔ L’intégralité des fourmis doivent rejoindre le dortoir en un minimum
+// d’étapes.
+
+
+// Lors d’une étape, chaque fourmis peut attendre dans la salle où elle se trouve
+// ou se déplacer dans une salle adjacente. Lorsque la fourmi f1 se déplace du
+// vestibule à la salle 1, on note alors : f1 - sv - S1
+// Il n’est pas nécessaire de noter qu’une fourmi attend.
