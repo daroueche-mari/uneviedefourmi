@@ -1,87 +1,62 @@
-#ifndef Foumiliere_hpp
+#ifndef Fourmiliere_hpp
 #define Fourmiliere_hpp
 
 #include <iostream>
+#include <vector>
+#include <map>
+#include <string>
 
-class Fourmiliere {
+class Fourmiliere
+{
+private:
+    // Variables de la classe
+    int fourmi;
+    std::string S_vestibule;
+    std::string S_depot;
+    std::string salle_un;   // Changé en string pour correspondre au graphe
+    std::string salle_deux; // Changé en string pour correspondre au graphe
+    int vitesse;
+    int moveFourmi;
+    
+    // Positions numériques
+    int positionV;
+    int positionD;
+    int positionR_un;
+    int positionR_deux;
+    
+    // Compteurs de fourmis
+    int nbfourmi_ROne;
+    int nbfourmi_RTwo;
 
-private :
+    // Graphe de la fourmilière
+    std::map<std::string, std::vector<std::string>> m_graphe;
+    std::map<std::string, bool> m_visite;
 
-int fourmi;
-std::string S_vestibule;
-std::string S_depot;
-int salle_un;
-int salle_deux;
-int vitesse;
-int positionV;
-int positionD;
+public:
+    // Constructeur par défaut (plus propre pour initialiser le graphe)
+    Fourmiliere();
 
-public :
+    // Setters
+    void set_PlayerFourmi(int playerF, int speed, int choicemove);
+    void set_vestibule(int posV);
+    void set_depotfourmi(int posD);
+    void set_SalleUn(std::string nomSalle, int posRoomone);
+    void set_SalleDeux(std::string nomSalle, int posRoomtwo);
 
-    Fourmiliere(int fourmi, std::string S_vestibule, std:: string S_depot, int salle_un, int salle_deux, int vitesse, int positionV,
-    int positionD){
-        this-> fourmi = fourmi;
-        this-> S_vestibule = S_vestibule;
-        this-> S_depot = S_depot;
-        this-> salle_un = salle_un;
-        this-> salle_deux = salle_deux;
-        this-> vitesse = vitesse;
-        this-> positionV = positionV;
-        this-> positionD = positionD;
-    }
+    // Algorithme de parcours
+    void executerDFS(std::string salleActuelle);
+    void reinitialiserVisites();
 
-    //setters
-    void set_NbFourmi(int nbfourmi) {
-        this-> fourmi = nbfourmi;
-    }
-    void set_vestibule(std::string txtvestibule, int posV) {
-        this-> S_vestibule = txtvestibule;
-        this-> positionV = posV;
-    }
-    void set_depotfourmi(std::string txtdepot, int posD) {
-        this-> S_depot = txtdepot;
-        this-> positionD = posD;
-    }
-    void set_numSalleUn(int numSalleOne) {
-        this-> salle_un = numSalleOne;
-    }
-    void set_numSalleDeux(int numSalleTwo) {
-        this-> salle_deux = numSalleTwo;
-    }
-
-    //getters
-    int get_nbfourmi() const{
-        return this-> fourmi;
-    }
-
-
-    std::string get_alertvestibule() const{
-        return this-> S_vestibule;
-    }
-    int get_positionVestibule() const{
-        return this-> positionV;
-    }
-
-
-    std::string get_depot() const{
-        return this-> S_depot;
-    }
-    int get_positionDepot() const{
-        return this-> positionD;
-    }
-
-
-
-    int get_salleOne() const{
-        return this-> salle_un;
-    }
-    int get_salleTwo() const{
-        return this-> salle_deux;
-    }
-
+    // Getters
+    int get_fourmi() const;
+    int get_fourmispeed() const;
+    int get_fourmichoicemove() const;
+    int get_positionVestibule() const;
+    int get_positionDepot() const;
+    std::string get_salleOne() const;
+    int get_nombrefourmi_ROne() const;
+    std::string get_salleTwo() const;
+    int get_nombrefourmi_RTwo() const;
 };
-
-
-
 
 #endif
