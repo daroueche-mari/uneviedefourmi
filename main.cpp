@@ -4,17 +4,17 @@
 
 int main() 
 {
-    std::cout << "========= DEBUT DE LA SIMULATION =========" << std::endl;
-
+    // FOURMILIERE ZERO
+    std::cout << "========= DEBUT DE LA FOURMILIERE ZERO =========" << std::endl;
     Fourmiliere PlayerOne;
     Fourmiliere PlayerTwo;
-    std::cout << "La fourmi 1 part du vestibule" <<std::endl;
-    PlayerOne.executerDFS("Sv");
+    std::cout << "LA FOURMI 1 PART DU VESTIBULE" <<std::endl;
+    PlayerOne.executerDFS("Sv", 1);
     PlayerOne.reinitialiserVisites();
+    std::cout << "\nLA FOURMI 2 PART DU VESTIBULE" <<std::endl;
+    PlayerTwo.executerDFS("Sv", 2);
 
-    std::cout << "La fourmi 2 part du vestibule" <<std::endl;
-    PlayerTwo.executerDFS("Sv");
-
-    std::cout << "\n========= FIN DE LA SIMULATION =========" << std::endl;
+    std::cout << "\n========= FIN DE LA FOURMILIERE ZERO =========" << std::endl;
     return 0;
+    
 }

@@ -16,8 +16,8 @@ Fourmiliere::Fourmiliere()
     this->positionR_deux = 2;
     this->positionD = 3;
 
-    // Création du graphe d'après tes données
-    m_graphe["Sv"] = {"S1", "S2"}; // Vestibule vers Salle 1 et Salle 2
+    // Le graphe complet (la structure réelle de la fourmilière)
+    m_graphe["Sv"] = {"S1", "S2"}; // Le Vestibule mène BIEN à S1 et S2
     m_graphe["S1"] = {"Sd"};       // Salle 1 vers Dépôt
     m_graphe["S2"] = {"Sd"};       // Salle 2 vers Dépôt
     m_graphe["Sd"] = {};           // Le dépôt n'a pas de sortie
@@ -26,7 +26,6 @@ Fourmiliere::Fourmiliere()
 // Configuration de la fourmi
 void Fourmiliere::set_PlayerFourmi(int playerF, int speed, int choicemove)
 {
-    // Correction : Remplacement du 'while' infini par un 'if'
     if (nbfourmi_ROne == 1 && nbfourmi_RTwo == 1)
     {
         choicemove = -1;
@@ -73,7 +72,6 @@ void Fourmiliere::set_SalleUn(std::string nomSalle, int posRoomone)
         this->moveFourmi = -1;
         std::cout << "Alerte ! Une seule fourmi est autorisee !" << std::endl;
     }
-    // Correction syntaxe : != à la place de = !
     else if (this->moveFourmi != this->positionR_un)
     {
         if (this->nbfourmi_ROne > 0)
@@ -98,7 +96,6 @@ void Fourmiliere::set_SalleDeux(std::string nomSalle, int posRoomtwo)
         this->moveFourmi = -1;
         std::cout << "Alerte ! Une seule fourmi est autorisee !" << std::endl;
     }
-    // Correction syntaxe : != à la place de = !
     else if (this->moveFourmi != this->positionR_deux)
     {
         if (this->nbfourmi_RTwo > 0)
@@ -108,12 +105,12 @@ void Fourmiliere::set_SalleDeux(std::string nomSalle, int posRoomtwo)
 }
 
 // L'ALGORITHME DFS (Parcours en profondeur)
-void Fourmiliere::executerDFS(std::string salleActuelle)
+void Fourmiliere::executerDFS(std::string salleActuelle, int numerofourmi)
 {
-    // 1. Marquer la salle actuelle comme visitée
+    // 1. Marquer la salle actuelle comme visitée et assigner le numéro
+    this->fourmi = numerofourmi;
     m_visite[salleActuelle] = true;
-    std::cout << "\n-> Exploration du noeud : " << salleActuelle << std::endl;
-
+    std::cout << "\n[Fourmi " << this->fourmi << "] -> Exploration du noeud : " << salleActuelle << std::endl;
     // 2. Faire le lien entre le nom du graphe ("S1", "S2"...) et tes méthodes de salle
     if (salleActuelle == "Sv")
     {
@@ -140,9 +137,23 @@ void Fourmiliere::executerDFS(std::string salleActuelle)
     // 3. Explorer récursivement les salles voisines non visitées
     for (std::string voisin : m_graphe[salleActuelle])
     {
+        // SI C'EST LA FOURMI 1 -> On bloque l'accès à la Salle 2
+        if (this->fourmi == 1 && voisin == "S2")
+        {
+            // std::cout << "[Securite] Fourmi 1 : Acces refuse a S2 !" << std::endl;
+            continue; // Ignore S2 et passe directement au voisin suivant
+        }
+
+        // SI C'EST LA FOURMI 2 -> On bloque l'accès à la Salle 1
+        if (this->fourmi == 2 && voisin == "S1")
+        {
+            // std::cout << "[Securite] Fourmi 2 : Acces refuse a S1 !" << std::endl;
+            continue; // Ignore S1 et passe directement au voisin suivant
+        }
         if (!m_visite[voisin])
         {
-            executerDFS(voisin);
+            // CORRECTION : On retransmet bien "numerofourmi" à l'appel suivant !
+            executerDFS(voisin, numerofourmi);
         }
     }
 }

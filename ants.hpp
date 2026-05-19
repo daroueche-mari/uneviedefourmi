@@ -13,8 +13,8 @@ private:
     int fourmi;
     std::string S_vestibule;
     std::string S_depot;
-    std::string salle_un;   // Changé en string pour correspondre au graphe
-    std::string salle_deux; // Changé en string pour correspondre au graphe
+    std::string salle_un;   
+    std::string salle_deux; 
     int vitesse;
     int moveFourmi;
     
@@ -33,7 +33,7 @@ private:
     std::map<std::string, bool> m_visite;
 
 public:
-    // Constructeur par défaut (plus propre pour initialiser le graphe)
+    // Constructeur par défaut
     Fourmiliere();
 
     // Setters
@@ -43,8 +43,8 @@ public:
     void set_SalleUn(std::string nomSalle, int posRoomone);
     void set_SalleDeux(std::string nomSalle, int posRoomtwo);
 
-    // Algorithme de parcours
-    void executerDFS(std::string salleActuelle);
+    // CORRECTION : Ajout de ", int numerofourmi" pour correspondre au .cpp
+    void executerDFS(std::string salleActuelle, int numerofourmi);
     void reinitialiserVisites();
 
     // Getters
